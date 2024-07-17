@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Voting System</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Online Voting System</h1>
+    </header>
+    
+    <div class="container">
+        <h2>Manage Users</h2>
+
+        <form method="POST" action="">
+            <input type="hidden" name="id" value="">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <select name="role">
+                <option value="admin">Admin</option>
+                <option value="voter">Voter</option>
+            </select>
+            <button type="submit" name="create_user">Create User</button>
+        </form>
+
+        <h3>Existing Users</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+                <td><?php echo $row['id']; ?></td>
+                <td><?php echo $row['username']; ?></td>
+                <td><?php echo $row['role']; ?></td>
+                <td>
+                    <form method="POST" action="">
+                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                        <input type="text" name="username" value="<?php echo $row['username']; ?>" required>
+                        <input type="password" name="password" placeholder="New Password">
+                        <select name="role">
+                            <option value="admin" <?php if($row['role'] == 'admin') echo 'selected'; ?>>Admin</option>
+                            <option value="voter" <?php if($row['role'] == 'voter') echo 'selected'; ?>>Voter</option>
+                        </select>
+                        <button type="submit" name="update_user">Update</button>
+                        <button type="submit" name="delete_user">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endwhile; ?>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Online Voting System</p>
+    </footer>
+</body>
+</html>
